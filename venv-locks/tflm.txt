@@ -1,0 +1,4 @@
+flatbuffers==25.12.19
+numpy==2.4.6
+pyyaml==6.0.3
+tflite-micro==0.dev20261012203412

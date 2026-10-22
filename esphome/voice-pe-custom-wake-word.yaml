@@ -1,0 +1,31 @@
+# Home Assistant Voice PE with a custom wake word, added alongside the stock ones.
+# Everything else is Nabu Casa's official firmware, pinned to a release tag: to update, bump the
+# @tag, then compile and upload again (the device stops pulling Nabu Casa's builds once you do this).
+#
+# Put your model files next to this file in wakewords/ (my_wake_word.tflite + my_wake_word.json).
+substitutions:
+  # Use your device's existing name (from Home Assistant's ESPHome integration) so Home Assistant
+  # keeps treating it as the same device.
+  name: home-assistant-voice-xxxxxx
+  friendly_name: Home Assistant Voice xxxxxx
+
+packages:
+  voice_pe: github://esphome/home-assistant-voice-pe/home-assistant-voice.yaml@26.9.0
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+
+# Like the factory firmware, no Wi-Fi credentials are compiled in: the device keeps the network it
+# was given at setup. Without this, the compile fails Wi-Fi validation. It also lets you set Wi-Fi
+# again over USB (Improv serial, e.g. from the ESPHome web installer) if the device ever loses it.
+improv_serial:
+
+micro_wake_word:
+  models:
+    - model: wakewords/my_wake_word.json
+      id: my_wake_word
+      # Optional: override the manifest's cutoff without retraining. Lower = more sensitive.
+      # The firmware's "Wake word sensitivity" setting only adjusts the stock models, never this one.
+      # probability_cutoff: 0.75

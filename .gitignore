@@ -1,0 +1,12 @@
+# Everything the scripts create lives beside them; none of it belongs in git.
+/data/
+/venvs/
+/cache/
+/tmp/
+/logs/
+/src/
+/train/
+/train_*/
+/output/
+*.tflite
+*.wav
